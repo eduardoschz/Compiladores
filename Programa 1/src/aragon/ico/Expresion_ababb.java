@@ -22,6 +22,7 @@ public class Expresion_ababb {
     public static void main(String[] args) {
         Expresion_ababb obj = new Expresion_ababb();
         obj.cadena = JOptionPane.showInputDialog("Dame la cadena");
+        
         if (obj.aceptar == obj.estado_A()) {
             JOptionPane.showMessageDialog(null, "Valida");
         } else {
