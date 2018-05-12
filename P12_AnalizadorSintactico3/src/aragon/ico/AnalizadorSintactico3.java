@@ -7,7 +7,7 @@ package aragon.ico;
 
 /**
  *
- * @author pc9
+ * @author eduardo
  */
 public class AnalizadorSintactico3 {
 
