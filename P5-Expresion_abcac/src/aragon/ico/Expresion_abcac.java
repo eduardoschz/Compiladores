@@ -21,11 +21,11 @@ public class Expresion_abcac {
 
     public static void main(String[] args) {
         Expresion_abcac obj = new Expresion_abcac();
-        obj.cadena = JOptionPane.showInputDialog(null, "Ingresa la cadena", "Programa 2", JOptionPane.QUESTION_MESSAGE);
+        obj.cadena = JOptionPane.showInputDialog(null, "Ingresa la cadena", "Programa 5", JOptionPane.QUESTION_MESSAGE);
         if (obj.aceptar == obj.estado_A()) {
-            JOptionPane.showConfirmDialog(null, "Cadena valida", "Resultado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Cadena valida", "Programa 5", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showConfirmDialog(null, "Cadena invalida", "Resultado", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Cadena invalida", "Programa 5", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }
 
