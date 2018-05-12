@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author eduardo
  */
-public class Ejemplo {
+public class DiagramaDiapositivas {
 
     public String cadena = JOptionPane.showInputDialog("Dame la cadena:");
     private int indice = 0;
@@ -283,7 +283,7 @@ public class Ejemplo {
     }
 
     public static void main(String[] args) {
-        Ejemplo app = new Ejemplo();
+        DiagramaDiapositivas app = new DiagramaDiapositivas();
         app.pila();
     }
 }

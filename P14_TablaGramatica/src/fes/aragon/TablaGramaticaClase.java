@@ -12,14 +12,15 @@ import javax.swing.JOptionPane;
  *
  * @author eduardo
  */
-public class Prueba {
+public class TablaGramaticaClase {
 
     public String cadena = JOptionPane.showInputDialog("Dame la cadena:");
     private int indice = 0;
     private int indice1;
     private boolean funciona = false;
     char c;
-    private String[][] tabla = {{"ABC", "ABC", "ABC", "ABC", "e"},
+    private String[][] tabla = 
+    {{"ABC", "ABC", "ABC", "ABC", "e"},
     {" ", "b", "c", " ", "e"},
     {"abC", "e", "e ", "  ", "e"},
     {"e", "e", "e", "d", "e"}};
@@ -265,7 +266,7 @@ public class Prueba {
     }
 
     public static void main(String[] args) {
-        Prueba apa = new Prueba();
+        TablaGramaticaClase apa = new TablaGramaticaClase();
         apa.pila();
     }
 
