@@ -14,41 +14,45 @@ import javax.swing.JOptionPane;
  */
 public class DiagramaDiapositivas {
 
-    public String cadena = JOptionPane.showInputDialog("Dame la cadena:");
+    public String cadena = JOptionPane.showInputDialog(null, "Insertar cadena", "Programa 14", JOptionPane.QUESTION_MESSAGE);
     private int indice = 0;
     private int indice1;
-    private boolean funciona = false;
+    private boolean err = false;
     char c;
-    private String[][] tabla = {{"AB", "AB", "e", "e", "e"},
+
+    private final String[][] TABLA = {{"AB", "AB", "e", "e", "e"},
     {"a", "A", "e", "e", "e"},
     {"e", "bCd", "e ", "e", "e"},
     {"e", "e", "C", " ", "e"}};
-    private Object[] terminal = {"a", "b", "c", "d", ";"};
-    private Object[] noTerminal = {"S", "A", "B", "C"};
+
+    private final Object[] TERMINAL = {"a", "b", "c", "d", ";"};
+
+    private final Object[] NO_TERMINAL = {"S", "A", "B", "C"};
+
     private Stack pilas = new Stack();
     private Object tmp;
 
     public void pila() {
         System.out.println(cadena);
-        pilas.push(terminal[terminal.length - 1]);
-        pilas.push(noTerminal[0]);
-        c = get_Char();
-        S(c);
+        pilas.push(TERMINAL[TERMINAL.length - 1]);
+        pilas.push(NO_TERMINAL[0]);
+        c = siguienteCaracter();
+        metodo_S(c);
         evaluar(c);
-        funciona = true;
+        err = true;
         int control = 0;
         Object tm, t;
         System.out.println(pilas);
-        while (funciona == true) {
+        while (err == true) {
             switch (c) {
                 case 'a':
-                    tmp = terminal[0];
+                    tmp = TERMINAL[0];
                     if (pilas.peek() == tmp) {
                         pilas.pop();
-                        c = get_Char();
-                        funciona = true;
+                        c = siguienteCaracter();
+                        err = true;
                     } else {
-                        funciona = false;
+                        err = false;
                     }
                     break;
                 case 'b':
@@ -57,20 +61,20 @@ public class DiagramaDiapositivas {
                     t = 'b';
                     if (pilas.peek() == tmp) {
                         evaluar(c);
-                        funciona = true;
+                        err = true;
                         control++;
                         if (control == 2) {
-                            funciona = false;
+                            err = false;
                         }
                     } else if (pilas.peek() == tm) {
                         //pilas.pop();
                         evaluar2(c);
                     } else if (pilas.peek() == t) {
                         pilas.pop();
-                        c = get_Char();
-                        funciona = true;
+                        c = siguienteCaracter();
+                        err = true;
                     } else {
-                        funciona = false;
+                        err = false;
                     }
                     break;
                 case 'c':
@@ -80,18 +84,18 @@ public class DiagramaDiapositivas {
                     t = 'c';
                     if (pilas.peek() == tm) {
                         evaluar2(c);
-                        funciona = false;
+                        err = false;
                     } else if (pilas.peek() == tmp) {
                         //pilas.pop();
                         evaluar3(c);
-                        funciona = false;
-                        error();
+                        err = false;
+                        rutinaError();
                     } else if (pilas.peek() == t) {
                         pilas.pop();
-                        c = get_Char();
-                        funciona = true;
+                        c = siguienteCaracter();
+                        err = true;
                     } else {
-                        funciona = false;
+                        err = false;
                     }
 
                     break;
@@ -102,31 +106,31 @@ public class DiagramaDiapositivas {
                     if (pilas.peek() == tmp) {
                         pilas.pop();
                         evaluar2(c);
-                        funciona = false;
+                        err = false;
                     } else if (pilas.peek() == tm) {
                         evaluar3(c);
-                        funciona = true;
+                        err = true;
                     } else if (pilas.peek() == t) {
                         pilas.pop();
-                        c = get_Char();
-                        funciona = true;
+                        c = siguienteCaracter();
+                        err = true;
                     } else {
-                        funciona = false;
-                        error();
+                        err = false;
+                        rutinaError();
                     }
                     break;
                 case ';':
                     t = ';';
-                    if (pilas.peek() == terminal[terminal.length - 1]) {
+                    if (pilas.peek() == TERMINAL[TERMINAL.length - 1]) {
                         pilas.pop();
-                        JOptionPane.showMessageDialog(null, "Cadena Correcta");
+                        JOptionPane.showMessageDialog(null, "Cadena correcta", "Programa 14", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
                         if (!pilas.empty()) {
-                            error();
+                            rutinaError();
                         }
                     }
-                    funciona = false;
+                    err = false;
                     break;
                 default:
 
@@ -136,12 +140,12 @@ public class DiagramaDiapositivas {
         }
     }
 
-    public void S(char c) {
+    public void metodo_S(char c) {
         indice = 1;
         switch (c) {
             case 'a': {
                 pilas.pop();
-                String cr = tabla[0][0];
+                String cr = TABLA[0][0];
                 System.out.println(cr);
                 for (int i = 0; i < cr.length(); i++) {
                     char[] t = cr.toCharArray();
@@ -153,7 +157,7 @@ public class DiagramaDiapositivas {
             }
             case 'b': {
                 pilas.pop();
-                String cr = tabla[0][1];
+                String cr = TABLA[0][1];
                 System.out.println(cr);
                 for (int i = 0; i < cr.length(); i++) {
                     char[] t = cr.toCharArray();
@@ -163,18 +167,18 @@ public class DiagramaDiapositivas {
                 break;
             }
             case 'c': {
-                error();
+                rutinaError();
                 break;
             }
             case 'd': {
-                error();
+                rutinaError();
                 break;
             }
             case ';':
-                error();
+                rutinaError();
                 break;
             default:
-                error();
+                rutinaError();
                 break;
         }
         System.out.println(pilas);
@@ -184,25 +188,25 @@ public class DiagramaDiapositivas {
         Object ad;
         switch (c) {
             case 'a':
-                ad = terminal[0];
+                ad = TERMINAL[0];
                 pilas.pop();
                 pilas.push(ad);
                 break;
             case 'b':
-                ad = noTerminal[1];
+                ad = NO_TERMINAL[1];
                 pilas.pop();
                 pilas.push(ad);
                 break;
             case 'c':
-                error();
+                rutinaError();
                 break;
             case 'd':
-                error();
+                rutinaError();
                 break;
             case ';':
             //error();
             default:
-                error();
+                rutinaError();
         }
         System.out.println(pilas);
     }
@@ -213,11 +217,11 @@ public class DiagramaDiapositivas {
         indice = 1;
         switch (c) {
             case 'a':
-                error();
+                rutinaError();
                 break;
             case 'b':
                 pilas.pop();
-                ad = tabla[2][1];
+                ad = TABLA[2][1];
                 System.out.println(ad);
                 f = (String) ad;
                 for (int i = 0; i < f.length(); i++) {
@@ -227,17 +231,17 @@ public class DiagramaDiapositivas {
                 }
                 break;
             case 'c':
-                error();
+                rutinaError();
                 break;
             case 'd':
-                error();
+                rutinaError();
                 break;
             case ';':
-                funciona = false;
+                err = false;
                 //error();
                 break;
             default:
-                error();
+                rutinaError();
         }
 
     }
@@ -246,13 +250,13 @@ public class DiagramaDiapositivas {
         Object ad;
         switch (c) {
             case 'a':
-                error();
+                rutinaError();
                 break;
             case 'b':
-                error();
+                rutinaError();
                 break;
             case 'c':
-                ad = noTerminal[3];
+                ad = NO_TERMINAL[3];
                 pilas.pop();
                 pilas.push(ad);
                 break;
@@ -263,11 +267,11 @@ public class DiagramaDiapositivas {
                 //error();
                 break;
             default:
-                error();
+                rutinaError();
         }
     }
 
-    public char get_Char() {
+    public char siguienteCaracter() {
         char[] charCadena = cadena.toCharArray();
         char c = 0;
         if (indice1 < charCadena.length) {
@@ -278,8 +282,8 @@ public class DiagramaDiapositivas {
 
     }
 
-    public void error() {
-        JOptionPane.showMessageDialog(null, "Error");
+    public void rutinaError() {
+        JOptionPane.showMessageDialog(null, "Error", "Programa 13", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void main(String[] args) {
