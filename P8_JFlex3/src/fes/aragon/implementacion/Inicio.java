@@ -8,9 +8,7 @@ package fes.aragon.implementacion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,12 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author makin
- */
 public class Inicio extends javax.swing.JFrame {
-    
+
     File archivo;
     Gramatica analizador;
 
@@ -68,7 +62,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         btnLimpiar.setFont(new java.awt.Font("Garuda", 0, 14)); // NOI18N
-        btnLimpiar.setText("Clear");
+        btnLimpiar.setText("Limpiar forma");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -84,7 +78,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Garuda", 0, 14)); // NOI18N
-        jLabel2.setText("Ingrese la expresión a analizar o seleccione el archivo que contenga la expresión a analizar.");
+        jLabel2.setText("Insertar expresion");
 
         areaCodigo.setColumns(20);
         areaCodigo.setFont(new java.awt.Font("Garuda", 0, 14)); // NOI18N
@@ -114,7 +108,6 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -122,14 +115,19 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAbrirArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCrearArchivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnCrearArchivo)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAnalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAnalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -145,14 +143,16 @@ public class Inicio extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnAnalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAbrirArchivo)
-                    .addComponent(btnCrearArchivo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAbrirArchivo)
+                            .addComponent(btnCrearArchivo))
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnLimpiar))
-                .addGap(8, 8, 8)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -174,8 +174,7 @@ public class Inicio extends javax.swing.JFrame {
         if (!areaCodigo.getText().equals("")) {
             this.crearArchivo();
             btnAnalizar.setEnabled(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "No hay nada en el area de texto");
         }
 
@@ -256,13 +255,13 @@ public class Inicio extends javax.swing.JFrame {
 
     public void AbrirArchivo() {
         // Crea la ventana y la situa en el directorio actual
-        JFileChooser selecArch = new JFileChooser();   
+        JFileChooser selecArch = new JFileChooser();
         selecArch.setCurrentDirectory(new File("."));
-        
+
         // Se configura para solo seleccionar archivos, sin filtros
         selecArch.setFileSelectionMode(selecArch.FILES_ONLY);
         selecArch.setAcceptAllFileFilterUsed(false);
-        
+
         // Se guarda un 0 se es seleccionado algun archivo o un 1 si se cancela
         int resultado = selecArch.showOpenDialog(null);
         if (resultado == JFileChooser.APPROVE_OPTION) {
@@ -274,30 +273,30 @@ public class Inicio extends javax.swing.JFrame {
     private void leerArchivo() {
         FileReader lector = null;
         BufferedReader buffer = null;
-        
+
         String linea;
-        
+
         try {
             lector = new FileReader(archivo);
             buffer = new BufferedReader(lector);
-            
-            while ((linea = buffer.readLine()) != null) {                
+
+            while ((linea = buffer.readLine()) != null) {
                 areaCodigo.append(linea + "\n");
             }
-            
+
             lector.close();
             buffer.close();
-            
+
         } catch (FileNotFoundException ex) {
             System.out.println(ex);
         } catch (IOException ex) {
             System.out.println(ex);
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             System.out.println(ex);
-        }   
-    } 
-    
-    public void crearArchivo(){
+        }
+    }
+
+    public void crearArchivo() {
         String ruta = System.getProperty("user.dir") + "\\archivo.txt";
         archivo = new File(ruta);
         try {
@@ -306,14 +305,14 @@ public class Inicio extends javax.swing.JFrame {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void escribirArchivo() throws IOException{
+
+    public void escribirArchivo() throws IOException {
         BufferedWriter bw;
-       
+
         bw = new BufferedWriter(new FileWriter(archivo));
         String contenido = areaCodigo.getText();
         bw.write(contenido);
-        
+
         bw.close();
     }
 }
