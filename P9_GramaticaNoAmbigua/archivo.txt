@@ -1,0 +1,4 @@
+int nombre, apellido;
+String nombre apellido;
+double valo5, resultado;
+boolean correcto;
